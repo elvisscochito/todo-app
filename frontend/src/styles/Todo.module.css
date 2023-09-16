@@ -1,0 +1,57 @@
+li.todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: first baseline;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+li.todo button.button {
+  margin-left: auto;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: .9rem;
+  height: .9rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 0.15rem;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  /* accent-color: var(--accent-color); */
+  background-color: var(--accent-color);
+}
+
+div.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+button.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button.button .icon {
+  font-size: 1.3rem;
+  color: var(--accent-color);
+}
+
+span.title,
+span.completed {
+  font-size: 1.5rem;
+}
+
+span.completed {
+  text-decoration: line-through;
+}
+
+span.dueDate {
+  font-size: 0.85rem;
+  color: var(--silver-color);
+}

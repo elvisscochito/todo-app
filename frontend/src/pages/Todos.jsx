@@ -1,3 +1,5 @@
+import { faCalendar, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import Todo from '../components/Todo';
 import { apiUrlPrefixLocal } from '../config/apiUrlPrefix';
@@ -9,6 +11,9 @@ function Todos() {
     title: ''
   });
   const [showAddTodo, setShowAddTodo] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dueDate, setDueDate] = useState('');
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -35,7 +40,9 @@ function Todos() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: todo.title
+          title: todo.title,
+          completed: completed,
+          dueDate: dueDate
         }),
       });
 
@@ -66,33 +73,63 @@ function Todos() {
     } else {
       setTodos([...todos, todo]);
       setTodo({
-        title: ''
+        title: '',
+        completed: false
       });
     }
   };
 
+  const handleDatePickerClick = () => {
+    setShowDatePicker(!showDatePicker);
+  };
+
+  const handleDateChange = (e) => {
+    setDueDate(e.target.value);
+  };
+
   return (
     <div className={styles.grid}>
-      <header>
-        <h1>To-Do List</h1>
-      </header>
-      <div className={styles.content}>
-        <button className={styles.button} onClick={handleSetShowAddTodo}>Add To-Do</button>
-        {
-          showAddTodo && (
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <input type="text" name='title' value={todo.title} onChange={handleChange} />
-              <button type='submit' className={styles.button}>Add</button>
-            </form>
-          )
-        }
-        <ul className={styles.todos}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1>To-Do List</h1>
+        </header>
+        <div className={styles.content}>
+          <button className={`${styles.button} ${styles.bigButton}`} onClick={handleSetShowAddTodo}>
+            <FontAwesomeIcon icon={faPlus} />
+            &nbsp;
+            Add new to-do
+          </button>
           {
-            todos.map(todo => (
-              <Todo key={todo._id} todo={todo} todos={todos} setTodos={setTodos} />
-            ))
+            showAddTodo && (
+              <form className={styles.form} onSubmit={handleSubmit}>
+                <fieldset className={styles.fieldset}>
+                  <input type="checkbox" name='completed' className={styles.checkbox} value={completed} onChange={() => setCompleted(true)} />
+                  <input type="text" name='title' className={styles.input} value={todo.title} onChange={handleChange} autoFocus />
+                  <FontAwesomeIcon className={styles.icon} icon={faCalendar} onClick={handleDatePickerClick} />
+                </fieldset>
+                {
+                  showDatePicker && (
+                    <div className={styles.datePicker}>
+                      <input
+                        type="datetime-local"
+                        name='dueDate'
+                        value={dueDate}
+                        onChange={handleDateChange}
+                      /* onChange={handleChange} */
+                      />
+                    </div>
+                  )}
+              </form>
+            )
           }
-        </ul>
+          <ul className={styles.todos}>
+            {
+              todos.map(todo => (
+                <Todo key={todo._id} todo={todo} todos={todos} setTodos={setTodos} />
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
   )

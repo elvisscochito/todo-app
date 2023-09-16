@@ -6,13 +6,17 @@ const todoSchema = new mongoose.Schema({
     required: true
   },
   completed: {
-    type: Boolean,
-    default: false
+    type: Boolean
+  },
+  dueDate: {
+    type: Date
   },
   removed: {
     type: Boolean,
     default: false
   }
+}, {
+  timestamps: true
 });
 
 const todo = mongoose.model("Todo", todoSchema);
