@@ -5,18 +5,80 @@ div.grid {
   width: 100vw;
 }
 
-ul.todos {
-  list-style: none;
+div.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  width: 30vw;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--details-color);
 }
 
-li.todo {
+ul.todos {
+  list-style: none;
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: flex-start;
-  padding: 0.5rem 0.5rem 0.5rem 0;
+  align-items: center;
   gap: 0.5rem;
 }
 
-li.todo button.button {
+form.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+input.input {
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+input.input:focus {
+  outline: none;
+  caret-color: var(--accent-color);
+  padding-left: 0.5rem;
+}
+
+button.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #c0c0c0;
+  font-weight: 500;
+}
+
+button.bigButton {
+  font-size: 1.5rem;
+}
+
+button.addButton {
+  font-size: 1rem;
+}
+
+fieldset.fieldset {
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
   margin-left: auto;
 }
+
+/* .datePicker {
+  display: none;
+}
+
+.show {
+  display: block;
+} */
